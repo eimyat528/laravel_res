@@ -41,11 +41,11 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>      
                           @foreach($dishes as $dish)
                           <tr>
                               <td>{{ $dish -> name}}</td>
-                              <td>{{ $dish -> category_id}}</td>
+                              <td>{{ $dish -> category ->name}}</td>
                               <td>{{ $dish -> created_at}}</td>
                               <td>
                                 <div class="form-row">
