@@ -111,4 +111,32 @@ class DishesController extends Controller
         return redirect('dish')->with('message','Dish removed sucessfully');
 
     }
+    public function order()
+    {
+        $rawstatus = config('res.order_status');
+        $status = array_flip($rawstatus);
+        $orders = Order::whereIn('status',[1,2])->get();
+        return view('kitchen.order',compact('orders','status'));
+    }
+
+    public function approve(Order $order)
+    {
+        $order->status = config('res.order_status.processing');
+        $order->save();
+        return redirect('order')->with('message','Order Approved');
+    }
+
+    public function cancel(Order $order)
+    {
+        $order->status = config('res.order_status.cancel');
+        $order->save();
+        return redirect('order')->with('message','Order Rejected');
+    }
+
+    public function ready(Order $order)
+    {
+        $order->status = config('res.order_status.ready');
+        $order->save();
+        return redirect('order')->with('message','Order Ready');
+    }
 }
